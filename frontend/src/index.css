@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased;
+    font-family: "Inter", system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl shadow-sm;
+  }
+  .card-hover {
+    @apply card hover:shadow-md hover:border-gray-200 dark:hover:border-gray-700 transition-all duration-200;
+  }
+  .input-field {
+    @apply w-full px-3.5 py-2.5 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm
+           outline-none transition-all duration-200 placeholder:text-gray-400;
+  }
+  .input-field:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5
+           text-white text-sm font-medium rounded-lg
+           active:scale-[0.98] transition-all duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100;
+    background: linear-gradient(to right, #4f46e5, #3b82f6);
+  }
+  .btn-primary:hover:not(:disabled) {
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
+    transform: scale(1.02);
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white dark:bg-gray-800
+           text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg border border-gray-200 dark:border-gray-700
+           hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-sm transition-all duration-200;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium;
+  }
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(to right, #4f46e5, #3b82f6);
+  }
+  .gradient-bg {
+    background: linear-gradient(to right, #4f46e5, #3b82f6);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

@@ -1,0 +1,78 @@
+flask==3.1.1
+flask-cors==5.0.1
+joblib==1.4.2
+pandas==2.2.3
+scikit-learn==1.6.1
+pymongo==4.12.1
+python-dotenv==1.1.0
+gunicorn==23.0.0
+# NestAI – House Price Prediction System
+
+NestAI is an AI-powered real estate price prediction platform built using Machine Learning, Flask API, React, Tailwind CSS, and MongoDB.
+
+The system helps users estimate fair market house prices based on property features such as area, bedrooms, bathrooms, parking, and location-related data.
+
+---
+
+## 🚀 Features
+
+- AI-based house price prediction
+- Flask REST API
+- React + Tailwind modern frontend
+- MongoDB integration
+- Responsive UI/UX
+- Real-time prediction results
+
+---
+
+## 🧠 Machine Learning
+
+The prediction model was built using:
+- Scikit-learn
+- RandomForestRegressor
+
+The model predicts prices based on:
+- Area
+- Bedrooms
+- Bathrooms
+- Stories
+- Parking
+- Age
+- City
+- Furnishing
+- Main Road
+- Guest Room
+- Basement
+- Water Supply
+- Air Conditioning
+- Preferred Tenant
+- Locality Rating
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+- React
+- Vite
+- Tailwind CSS
+- Axios
+
+### Backend
+- Flask
+- Flask-CORS
+- Joblib
+- Pandas
+- Scikit-learn
+
+### Database
+- MongoDB
+
+---
+
+## ⚙️ Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/jayd308/nestai-house-price-predictor.git
