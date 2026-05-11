@@ -9,7 +9,10 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-app.config["MONGO_URI"] = os.getenv("MONGO_URI", "mongodb://localhost:27017/abz_predictions")
+app.config["MONGO_URI"] = os.getenv(
+    "MONGO_URI",
+    "mongodb://localhost:27017/abz_predictions"
+)
 
 load_model()
 
