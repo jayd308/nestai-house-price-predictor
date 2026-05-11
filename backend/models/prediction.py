@@ -1,6 +1,7 @@
 import os
 import json
 from datetime import datetime
+from urllib.parse import urlparse
 from pymongo import MongoClient
 from bson import ObjectId
 
@@ -15,6 +16,9 @@ class JSONEncoder(json.JSONEncoder):
 def get_db():
     uri = os.getenv("MONGO_URI", "mongodb://localhost:27017/abz_predictions")
     client = MongoClient(uri)
+    parsed = urlparse(uri)
+    if not parsed.path or parsed.path == "/":
+        return client.get_database("abz_predictions")
     return client.get_database()
 
 
