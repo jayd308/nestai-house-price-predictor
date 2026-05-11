@@ -1,10 +1,13 @@
 from flask import Flask
 from flask_cors import CORS
+from dotenv import load_dotenv
 from routes.health import health_bp
 from routes.predict import predict_bp
 from routes.predictions import predictions_bp
 from services.ml_service import load_model
 import os
+
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app, resources={
