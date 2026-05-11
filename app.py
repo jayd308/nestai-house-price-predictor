@@ -9,7 +9,7 @@ import os
 app = Flask(__name__)
 
 # allow frontend (Vercel) to access API
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 # MongoDB (optional)
 app.config["MONGO_URI"] = os.getenv(
