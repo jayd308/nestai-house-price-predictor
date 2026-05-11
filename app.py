@@ -1,22 +1,33 @@
-from flask import Flask, request, jsonify
-import joblib
-import pandas as pd
+from flask import Flask
+from flask_cors import CORS
+from routes.health import health_bp
+from routes.predict import predict_bp
+from routes.predictions import predictions_bp
+from services.ml_service import load_model
+import os
 
 app = Flask(__name__)
 
-model = joblib.load("house_price_model.pkl")
+# allow frontend (Vercel) to access API
+CORS(app)
 
-@app.route("/predict", methods=["POST"])
-def predict():
-    data = request.json
+# MongoDB (optional)
+app.config["MONGO_URI"] = os.getenv(
+    "MONGO_URI",
+    "mongodb://localhost:27017/abz_predictions"
+)
 
-    df = pd.DataFrame([data])
+# load ML model
+load_model()
 
-    prediction = model.predict(df)
+# register blueprints
+app.register_blueprint(health_bp)
+app.register_blueprint(predict_bp)
+app.register_blueprint(predictions_bp)
 
-    return jsonify({
-        "predicted_price": float(prediction[0])
-    })
+@app.route("/")
+def home():
+    return {"message": "NestAI API is running 🚀"}
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False, host="0.0.0.0", port=5000)

@@ -1,32 +1,34 @@
 from flask import Blueprint, request, jsonify
-from services.ml_service import predict_price
-from utils.encoder import encode_input
-from models.prediction import save_prediction
+import numpy as np
+from services.ml_service import model
 
 predict_bp = Blueprint("predict", __name__)
 
-
 @predict_bp.route("/predict", methods=["POST"])
 def predict():
-    try:
-        data = request.get_json()
-        if not data:
-            return jsonify({"error": "No input data provided"}), 400
+    data = request.get_json()
 
-        encoded = encode_input(data)
-        price = predict_price(encoded)
+    features = np.array([[
+        data["Area"],
+        data["Bedrooms"],
+        data["Bathrooms"],
+        data["Stories"],
+        data["Parking"],
+        data["Age"],
+        data["City"],
+        data["Furnishing"],
+        data["Main Road"],
+        data["Guest Room"],
+        data["Basement"],
+        data["Water Supply"],
+        data["Air Conditioning"],
+        data["Preferred Tenant"],
+        data["Locality Rating"]
+    ]])
 
-        try:
-            save_prediction(data, price)
-        except Exception:
-            pass
+    prediction = model.predict(features)[0]
 
-        return jsonify({
-            "success": True,
-            "predicted_price": round(price, 2),
-            "formatted_price": f"{round(price):,}",
-            "currency": "RWF",
-            "input": data,
-        })
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    return jsonify({
+        "success": True,
+        "predicted_price": float(prediction)
+    })
