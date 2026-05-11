@@ -12,7 +12,10 @@ def predict():
     encoded_features = encode_input(data)
     prediction = predict_price(encoded_features)
 
-    prediction_id = save_prediction(data, prediction)
+    try:
+        prediction_id = save_prediction(data, prediction)
+    except Exception:
+        prediction_id = None
 
     return jsonify({
         "success": True,
