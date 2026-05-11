@@ -7,9 +7,8 @@ export default defineConfig({
     proxy: {
       "/api": {
         target: "https://nestai-house-api.onrender.com",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
-      },
-    },
-  },
+        changeOrigin: true
+      }
+    }
+  }
 })
