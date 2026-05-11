@@ -7,7 +7,17 @@ from services.ml_service import load_model
 import os
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={
+    r"/*": {
+        "origins": [
+            "http://localhost:5173",
+            "http://localhost:3000",
+            "https://nestai-house-price-predictor.vercel.app"
+        ],
+        "methods": ["GET", "POST", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type"]
+    }
+})
 
 app.config["MONGO_URI"] = os.getenv(
     "MONGO_URI",
