@@ -14,11 +14,13 @@ app.config["MONGO_URI"] = os.getenv(
     "mongodb://localhost:27017/abz_predictions"
 )
 
+# load model once at startup
 load_model()
 
 app.register_blueprint(health_bp)
 app.register_blueprint(predict_bp)
 app.register_blueprint(predictions_bp)
 
+# IMPORTANT for Render (NO app.run in production)
 if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0", port=5000)
+    app.run(debug=True, host="0.0.0.0", port=5000)

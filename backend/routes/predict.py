@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
-import numpy as np
-from services.ml_service import model
+from services.ml_service import predict_price
+from utils.encoder import encode_input
+from models.prediction import save_prediction
 
 predict_bp = Blueprint("predict", __name__)
 
@@ -8,27 +9,13 @@ predict_bp = Blueprint("predict", __name__)
 def predict():
     data = request.get_json()
 
-    features = np.array([[
-        data["Area"],
-        data["Bedrooms"],
-        data["Bathrooms"],
-        data["Stories"],
-        data["Parking"],
-        data["Age"],
-        data["City"],
-        data["Furnishing"],
-        data["Main Road"],
-        data["Guest Room"],
-        data["Basement"],
-        data["Water Supply"],
-        data["Air Conditioning"],
-        data["Preferred Tenant"],
-        data["Locality Rating"]
-    ]])
+    encoded_features = encode_input(data)
+    prediction = predict_price(encoded_features)
 
-    prediction = model.predict(features)[0]
+    prediction_id = save_prediction(data, prediction)
 
     return jsonify({
         "success": True,
-        "predicted_price": float(prediction)
+        "predicted_price": prediction,
+        "prediction_id": prediction_id,
     })
